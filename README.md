@@ -8,6 +8,7 @@ The web app displays GitHub repo history starting from the very first commit. (y
 - you put any GitHub repo URL (or even only `author/repo` path) into the search bar;
 - show list of commits starting from the very first;
 
-### Design
+### Design & Implementation
 
-https://www.figma.com/file/1yMsW7w1xXs5K7B3NAhWFA/Your-First-Commit.io-Project?node-id=0%3A1
+- Figma Design, npm.io main page: https://www.figma.com/file/1yMsW7w1xXs5K7B3NAhWFA/Your-First-Commit.io-Project?node-id=0%3A1
+- npms.io website repo: https://github.com/npms-io/npms-www
