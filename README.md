@@ -12,6 +12,14 @@ The project divided by several steps:
 
 ## Proof of Concept
 
+First, the concept. We are driving to build the first feasible produdct following the next rules:
+
+> Keep your proof of concept as simple and bare bones as possible. To help keep costs down and reduce the time required to build it, you should:
+> - Keep the PoC development team small. Minimizing the number of people working on the PoC will help to keep the work more efficient.
+> - Minimize the amount of UI/UX design work. This type of work can be costly. Only do work that is strictly necessary to meet the goals you established for your PoC.
+> - Focus only on the goals you established for your PoC. Do not attempt to build an MVP. That should be a separate stage of development.
+> - After you have your proof of concept built, you’ll be ready to start assessing the results!
+
 The concept goal is only to show the project's very first commit. We are going to use original GitHub web site. Implementation of the commit's code changes is out of scope for the PoC. Please wait until the PRD would be fulfilled and the set of requirements would be finalized.
 
 ### Goals
