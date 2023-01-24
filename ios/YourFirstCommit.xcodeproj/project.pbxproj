@@ -11,6 +11,15 @@
 		D05A0814297FD840009154A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A0813297FD840009154A6 /* ContentView.swift */; };
 		D05A0816297FD841009154A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05A0815297FD841009154A6 /* Assets.xcassets */; };
 		D05A0819297FD841009154A6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05A0818297FD841009154A6 /* Preview Assets.xcassets */; };
+		D05A0820297FDA3A009154A6 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A081F297FDA3A009154A6 /* FileList.swift */; };
+		D05A0823297FDF4F009154A6 /* RepoNameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A0822297FDF4F009154A6 /* RepoNameField.swift */; };
+		D071CE35298058F200517F6B /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071CE34298058F200517F6B /* Repo.swift */; };
+		D071CE372980591200517F6B /* RepoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071CE362980591200517F6B /* RepoFile.swift */; };
+		D071CE3929805AA400517F6B /* RepoFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071CE3829805AA400517F6B /* RepoFilesView.swift */; };
+		D09431C029803E110057DAEE /* GithubApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09431BF29803E110057DAEE /* GithubApiService.swift */; };
+		D09431C4298041D90057DAEE /* SearchReposResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09431C3298041D90057DAEE /* SearchReposResults.swift */; };
+		D09431C6298049880057DAEE /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09431C5298049880057DAEE /* RepoView.swift */; };
+		D09431C929804E0F0057DAEE /* LoaderSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09431C829804E0F0057DAEE /* LoaderSpinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +28,16 @@
 		D05A0813297FD840009154A6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D05A0815297FD841009154A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D05A0818297FD841009154A6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D05A081F297FDA3A009154A6 /* FileList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
+		D05A0822297FDF4F009154A6 /* RepoNameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoNameField.swift; sourceTree = "<group>"; };
+		D071CE34298058F200517F6B /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		D071CE362980591200517F6B /* RepoFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoFile.swift; sourceTree = "<group>"; };
+		D071CE3829805AA400517F6B /* RepoFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoFilesView.swift; sourceTree = "<group>"; };
+		D09431BF29803E110057DAEE /* GithubApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubApiService.swift; sourceTree = "<group>"; };
+		D09431C12980414B0057DAEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D09431C3298041D90057DAEE /* SearchReposResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReposResults.swift; sourceTree = "<group>"; };
+		D09431C5298049880057DAEE /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
+		D09431C829804E0F0057DAEE /* LoaderSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderSpinner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +70,12 @@
 		D05A0810297FD840009154A6 /* YourFirstCommit */ = {
 			isa = PBXGroup;
 			children = (
+				D09431C2298041B80057DAEE /* Models */,
+				D09431C12980414B0057DAEE /* Info.plist */,
+				D09431BE29803DE40057DAEE /* Services */,
 				D05A0811297FD840009154A6 /* YourFirstCommitApp.swift */,
 				D05A0813297FD840009154A6 /* ContentView.swift */,
+				D05A0821297FDF15009154A6 /* Views */,
 				D05A0815297FD841009154A6 /* Assets.xcassets */,
 				D05A0817297FD841009154A6 /* Preview Content */,
 			);
@@ -65,6 +88,44 @@
 				D05A0818297FD841009154A6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D05A0821297FDF15009154A6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D09431C729804DFB0057DAEE /* Misc */,
+				D05A081F297FDA3A009154A6 /* FileList.swift */,
+				D05A0822297FDF4F009154A6 /* RepoNameField.swift */,
+				D09431C5298049880057DAEE /* RepoView.swift */,
+				D071CE3829805AA400517F6B /* RepoFilesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D09431BE29803DE40057DAEE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D09431BF29803E110057DAEE /* GithubApiService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D09431C2298041B80057DAEE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D09431C3298041D90057DAEE /* SearchReposResults.swift */,
+				D071CE34298058F200517F6B /* Repo.swift */,
+				D071CE362980591200517F6B /* RepoFile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D09431C729804DFB0057DAEE /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				D09431C829804E0F0057DAEE /* LoaderSpinner.swift */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +198,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05A0820297FDA3A009154A6 /* FileList.swift in Sources */,
+				D071CE3929805AA400517F6B /* RepoFilesView.swift in Sources */,
+				D09431C6298049880057DAEE /* RepoView.swift in Sources */,
+				D09431C029803E110057DAEE /* GithubApiService.swift in Sources */,
+				D071CE35298058F200517F6B /* Repo.swift in Sources */,
+				D09431C4298041D90057DAEE /* SearchReposResults.swift in Sources */,
+				D09431C929804E0F0057DAEE /* LoaderSpinner.swift in Sources */,
+				D05A0823297FDF4F009154A6 /* RepoNameField.swift in Sources */,
 				D05A0814297FD840009154A6 /* ContentView.swift in Sources */,
 				D05A0812297FD840009154A6 /* YourFirstCommitApp.swift in Sources */,
+				D071CE372980591200517F6B /* RepoFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +339,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"YourFirstCommit/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = YourFirstCommit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -297,7 +367,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"YourFirstCommit/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = YourFirstCommit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
