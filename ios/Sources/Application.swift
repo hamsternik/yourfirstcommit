@@ -2,13 +2,13 @@
 //  Application.swift
 //  YourFirstCommit
 //
-//  Created by Nikita Khomitsevych on 24.01.2023.
+//  Created by Alex Antipov on 24.01.2023.
 //
 
 import SwiftUI
 
 @main
-struct YourFirstCommitApp: App {
+struct Application: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
