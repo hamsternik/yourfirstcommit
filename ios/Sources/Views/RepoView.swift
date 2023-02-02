@@ -12,8 +12,6 @@ struct RepoView: View {
     
     @State var repo: Repo
     
-    @EnvironmentObject var githubApi: GithubApiService
-    
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 6) {
@@ -27,8 +25,6 @@ struct RepoView: View {
                 }
                 
                 
-                //            Text("link: \n\(repo.html_url)")
-                
                 Link(destination: URL(string: repo.html_url)!) {
                     HStack {
                         Text("Open in browser")
@@ -41,18 +37,17 @@ struct RepoView: View {
                 RepoFilesView(repo: self.repo)
                 
                 
-                
             }
         }
+        .padding()
     }
 }
 
 struct RepoView_Previews: PreviewProvider {
     
     @State static var repo = Repo(id: 666, name: "PreviewRepo", full_name: "ress/previewrepo", html_url: "https://repo.com")
-    @State static var githubApiService = GithubApiService()
     
     static var previews: some View {
-        RepoView(repo: repo).environmentObject(githubApiService)
+        RepoView(repo: repo)
     }
 }

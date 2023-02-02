@@ -12,9 +12,10 @@ struct RepoNameField: View {
     
     @State var repoName: String = "tensorflow"
     
-    @EnvironmentObject var githubApi: GithubApiService
-    
+    @State private var foundRepos:SearchReposResults? = nil
     @State private var isActive = false
+    
+    @State private var reposSearchInProgress: Bool = false
     
     
     // Some repos fo quick switching
@@ -29,70 +30,49 @@ struct RepoNameField: View {
         "spectre.css"
     ]
     
-//    private func startGithubSearch(for name: String) {
-//        let results: SearchReposResults = githubApi.newSearchGithub(forRepo: name)
-//    }
-    
+    private func startGithubSearch(for name: String) {
+        reposSearchInProgress = true
+        GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
+            if let repos = result {
+                foundRepos = repos
+                isActive = true
+                reposSearchInProgress = false
+            } else if let _ = error {
+                //Handle or show this error somehow
+                reposSearchInProgress = false
+            }
+        }
+    }
     
     
     var body: some View {
         GeometryReader { geometry in
-        NavigationView {
             
             VStack(alignment: .center, spacing: 6) {
                 
                 
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    
-                    Text("Enter repository name:")
-                    TextField("Enter text...", text: $repoName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .disableAutocorrection(true).font(.system(.body, design: .monospaced))
-                        .background(Color.gray.opacity(0.25))
-                    
-                }
-                
-                .padding(.bottom)
+                Text("Enter repository name:")
+                TextField("Enter text...", text: $repoName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disableAutocorrection(true).font(.system(.body, design: .monospaced))
+                    .padding(.bottom)
                 
                 HStack (spacing: 10) {
                     Button("Search") {
-                        githubApi.searchGithub(forRepo: self.repoName)
+                        startGithubSearch(for: self.repoName)
                     }.buttonStyle(.bordered)
                     
                     Button("I'm Feeling Lucky") {
                         repoName = predefinedRepos.randomElement()!
-                        githubApi.searchGithub(forRepo: self.repoName)
+                        startGithubSearch(for: self.repoName)
                     }.buttonStyle(.bordered)
                 }
                 
-//                NavigationLink(destination: GitHubSearchResults(results: githubApi.searchRepoResults), isActive: $isActive) { }
+                NavigationLink(destination: GitHubSearchResults(results: self.foundRepos), isActive: $isActive) { }
                 
-                
-                if let results = githubApi.searchRepoResults {
-//                    NavigationLink(destination: GitHubSearchResults(results: results), isActive: $isActive){}.hidden()
-                    
-                        
-                    Text("Results: \(results.total_count)")
-                    List {
-                        ForEach(results.items, id: \.self) { repoItem in
-                            NavigationLink {
-                                RepoView(repo: repoItem)
-                            } label: {
-                                Text(repoItem.full_name).padding(0)
-                            }.listRowSeparator(.hidden).padding(0)
-
-                        }
-                    }.listStyle(PlainListStyle())
-                }
-                
-                if githubApi.searchRepoLoading {
+                if reposSearchInProgress {
                     LoaderView()
                 }
-                
-                
-            }
-                
             }
         }
     }
@@ -100,9 +80,9 @@ struct RepoNameField: View {
 
 struct RepoNameField_Previews: PreviewProvider {
     
-    @State static var githubApi = GithubApiService()
+    //    @State static var githubApi = GithubApiService()
     
     static var previews: some View {
-        RepoNameField().environmentObject(githubApi)
+        RepoNameField()
     }
 }

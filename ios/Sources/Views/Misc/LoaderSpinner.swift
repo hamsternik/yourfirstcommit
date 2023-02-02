@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
     
 struct LoaderView: View {
     var tintColor: Color = .blue

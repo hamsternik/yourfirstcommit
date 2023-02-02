@@ -9,56 +9,30 @@ import SwiftUI
 
 struct GitHubSearchResults: View {
     
-    @State var results: SearchReposResults
-    
-    
-    
-//    init() {
-//
-//    }
-//
-//    init(by_user: Bool) {
-//        if by_user == true {
-//            _showUserCardsOnly = State(initialValue: true)
-//        }
-//
-//    }
-        
+    @State var results: SearchReposResults?
     
     var body: some View {
-        NavigationView {
-            VStack {
+        VStack {
+            
+            if let results = self.results {
+                
                 List {
-
-                    //                    if (self.filteredCards.count == 0) {
-                    //                        Text("No cards, add some")
-                    //                    }
-                    ForEach(results.items) { item in
-                        //NavigationLink {
-                            
-                        //} label: {
-                        Text("Item: \(item.name)")
-                        //}.listRowSeparator(.hidden)
+                    ForEach(results.items, id: \.self) { repoItem in
+                        NavigationLink {
+                            RepoView(repo: repoItem)
+                        } label: {
+                            Text(repoItem.full_name).padding(0)
+                        }.listRowSeparator(.hidden).padding(0)
                     }
-                    
-                    if (results.items.count == 0) {
-                        Text("No items")
-                    }
-                    
                 }.listStyle(PlainListStyle())
                 
-//                .navigationBarTitle(Text("Cards List"), displayMode: .inline)
-//                .navigationBarItems(trailing: Button(action: {
-//                    self.addMode = true
-//                } ) {
-//                    Image(systemName: "plus")
-//                        .padding([.leading, .top, .bottom])
-//                } )
-                
-
+            } else {
+                Text("No repositories")
             }
-            .padding(0)
+            
         }
+        .padding(0)
+        .navigationBarTitle(Text("Search results"), displayMode: .inline)
     }
 }
 

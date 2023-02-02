@@ -19,7 +19,6 @@
 		D0785D2429881D0200147F21 /* LoaderSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1B29881D0200147F21 /* LoaderSpinner.swift */; };
 		D0785D2529881D0200147F21 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1C29881D0200147F21 /* RepoView.swift */; };
 		D0785D2629881D0200147F21 /* RepoNameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1D29881D0200147F21 /* RepoNameField.swift */; };
-		D0785D2729881D0200147F21 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1E29881D0200147F21 /* FileList.swift */; };
 		D0785D2829881D0200147F21 /* RepoFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1F29881D0200147F21 /* RepoFilesView.swift */; };
 		D0ADDA08298B7F410022B650 /* GitHubSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		D0785D1B29881D0200147F21 /* LoaderSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderSpinner.swift; sourceTree = "<group>"; };
 		D0785D1C29881D0200147F21 /* RepoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
 		D0785D1D29881D0200147F21 /* RepoNameField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoNameField.swift; sourceTree = "<group>"; };
-		D0785D1E29881D0200147F21 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
 		D0785D1F29881D0200147F21 /* RepoFilesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoFilesView.swift; sourceTree = "<group>"; };
 		D0ADDA06298B779B0022B650 /* YourFirstCommit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YourFirstCommit-Info.plist"; sourceTree = "<group>"; };
 		D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchResults.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				D0785D1A29881D0200147F21 /* Misc */,
 				D0785D1C29881D0200147F21 /* RepoView.swift */,
 				D0785D1D29881D0200147F21 /* RepoNameField.swift */,
-				D0785D1E29881D0200147F21 /* FileList.swift */,
 				D0785D1F29881D0200147F21 /* RepoFilesView.swift */,
 				D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */,
 			);
@@ -271,7 +268,6 @@
 			files = (
 				D0785D2129881D0200147F21 /* SearchReposResults.swift in Sources */,
 				D0785D2829881D0200147F21 /* RepoFilesView.swift in Sources */,
-				D0785D2729881D0200147F21 /* FileList.swift in Sources */,
 				D0785D2329881D0200147F21 /* GithubApiService.swift in Sources */,
 				D0785D2529881D0200147F21 /* RepoView.swift in Sources */,
 				D0785D2229881D0200147F21 /* RepoFile.swift in Sources */,
