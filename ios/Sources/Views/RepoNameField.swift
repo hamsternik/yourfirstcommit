@@ -14,51 +14,74 @@ struct RepoNameField: View {
     
     @EnvironmentObject var githubApi: GithubApiService
     
+    @State private var isActive = false
     
     
-    // Some baked repos fo quick switching for debug/development purposes
-    private let predefinedRepos: [String] = ["tensorflow", "btop", "ahawker/ulid", "https://github.com/skanaar/nomnoml.git","r-ss/ress_notification_service.git"
+    // Some repos fo quick switching
+    // by "I'm Feeling Lucky" button
+    private let predefinedRepos: [String] = [
+        "tensorflow",
+        "btop",
+        "ahawker/ulid",
+        "nomnoml",
+        "IKEv2-setup",
+        "powerlevel10k",
+        "spectre.css"
     ]
     
+//    private func startGithubSearch(for name: String) {
+//        let results: SearchReposResults = githubApi.newSearchGithub(forRepo: name)
+//    }
+    
+    
+    
     var body: some View {
+        GeometryReader { geometry in
         NavigationView {
             
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .center, spacing: 6) {
                 
                 
                 
                 VStack(alignment: .leading, spacing: 6) {
                     
-                    Text("Enter repository name:").font(.title3)
+                    Text("Enter repository name:")
                     TextField("Enter text...", text: $repoName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .disableAutocorrection(true).font(.system(.body, design: .monospaced))
+                        .background(Color.gray.opacity(0.25))
                     
                 }
-                .background(Color.gray.opacity(0.25))
+                
                 .padding(.bottom)
                 
-                Text("Some predefined repos (for dev):").font(.title3)
-                Picker("Predefined repos", selection: $repoName) {
-                    ForEach(predefinedRepos, id: \.self) { item in
-                        Text(item)
-                    }
+                HStack (spacing: 10) {
+                    Button("Search") {
+                        githubApi.searchGithub(forRepo: self.repoName)
+                    }.buttonStyle(.bordered)
+                    
+                    Button("I'm Feeling Lucky") {
+                        repoName = predefinedRepos.randomElement()!
+                        githubApi.searchGithub(forRepo: self.repoName)
+                    }.buttonStyle(.bordered)
                 }
                 
-                Button("Search!") {
-                    githubApi.searchRepo(for_name: self.repoName)
-                }
+//                NavigationLink(destination: GitHubSearchResults(results: githubApi.searchRepoResults), isActive: $isActive) { }
+                
                 
                 if let results = githubApi.searchRepoResults {
+//                    NavigationLink(destination: GitHubSearchResults(results: results), isActive: $isActive){}.hidden()
+                    
+                        
                     Text("Results: \(results.total_count)")
                     List {
                         ForEach(results.items, id: \.self) { repoItem in
-                            //Text(repoItem.full_name)
                             NavigationLink {
                                 RepoView(repo: repoItem)
                             } label: {
                                 Text(repoItem.full_name).padding(0)
                             }.listRowSeparator(.hidden).padding(0)
-                            
+
                         }
                     }.listStyle(PlainListStyle())
                 }
@@ -68,7 +91,7 @@ struct RepoNameField: View {
                 }
                 
                 
-                
+            }
                 
             }
         }

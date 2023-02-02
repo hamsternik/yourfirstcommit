@@ -39,7 +39,7 @@ struct RepoFilesView: View {
             
 
         }.onAppear {
-            self.githubApi.getRepoFiles(for_repo: self.repo)
+            self.githubApi.getRepoFiles(repo: self.repo)
         }
         
     }

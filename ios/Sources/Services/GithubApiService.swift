@@ -19,12 +19,42 @@ class GithubApiService: ObservableObject {
     
     @Published var repoFilesResults: [RepoFile]?
     
+    //    func newSearchGithub(forRepo repoName: String) -> SearchReposResults? {
+    //        if let url = URL(string: apiRootURL + "search/repositories?q=" + repoName) {
+    //            let session = URLSession(configuration: .default)
+    //            let task = session.dataTask(with: url) { (data, response, error) in
+    //                if error == nil {
+    //                    let decoder = JSONDecoder()
+    //
+    //                    if let safeData = data {
+    //                        do {
+    //                            let result = try decoder.decode(SearchReposResults.self, from: safeData)
+    //                            var res = result
+    //                            if res.items.count > 5 {
+    //                                res.items = Array(res.items[0 ..< 5])
+    //                            }
+    //                            return res
+    //
+    //                        }
+    //                    } catch {
+    //                        print(error)
+    //                    }
+    //                }
+    //
+    //
+    //            }
+    //        }
+    //    }
+    //    task.resume()
+    //}
     
-    func searchRepo(for_name: String){
+    
+    
+    func searchGithub(forRepo repoName: String){
         self.searchRepoLoading = true // to show loader spinner
         self.searchRepoResults = nil // to reset previous search on views
         
-        if let url = URL(string: apiRootURL + "search/repositories?q=" + for_name) {
+        if let url = URL(string: apiRootURL + "search/repositories?q=" + repoName) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error == nil {
@@ -59,11 +89,11 @@ class GithubApiService: ObservableObject {
         }
     }
     
-    func getRepoFiles(for_repo: Repo){
+    func getRepoFiles(repo: Repo){
         self.repoFilesLoading = true // to show loader spinner
         self.repoFilesResults = nil // to reset previous search on views
         
-        if let url = URL(string: apiRootURL + "repos/" + for_repo.full_name + "/contents") {
+        if let url = URL(string: apiRootURL + "repos/" + repo.full_name + "/contents") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error == nil {

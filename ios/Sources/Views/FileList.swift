@@ -13,18 +13,20 @@ struct FileList: View {
     @State var filesList: [String] = ["README.md", "script.py", ".gitinore", "dummy-files-list.txt"]
     
     var body: some View {
-        
-        VStack(alignment: .leading, spacing: 6) {
+        GeometryReader { geometry in
             
-            Text("Files list:").font(.title3)
-            ForEach(filesList, id: \.self) { fileName in
-                Text(fileName).font(.system(.body, design: .monospaced))
-            }
+            VStack(alignment: .leading, spacing: 6) {
                 
+                Text("Files list:").font(.title3)
+                ForEach(filesList, id: \.self) { fileName in
+                    Text(fileName).font(.system(.body, design: .monospaced))
+                }
+                
+            }
+            .frame(width: geometry.size.width, alignment: .leading)
+            .background(Color.gray.opacity(0.25))
+            .padding()
         }
-        .background(Color.gray.opacity(0.25))
-        .padding()
-        
     }
 }
 
