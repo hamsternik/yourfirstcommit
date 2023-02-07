@@ -14,39 +14,26 @@ struct RepoNameField_Previews: PreviewProvider {
 }
 
 struct RepoNameField: View {
-    
-    @State var repoName: String = "tensorflow"
+    @State var repoName: String = ""
     
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
-            Text("Enter repository name:")
-            TextField("Enter text...", text: $repoName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disableAutocorrection(true).font(.system(.body, design: .monospaced))
-                .padding(.bottom)
-            
-            HStack (spacing: 10) {
-                Button("Search") {
-                    startGithubSearch(for: self.repoName)
-                }
-                .buttonStyle(.bordered)
-                
-                Button("I'm Feeling Lucky") {
-                    repoName = predefinedRepos.randomElement()!
-                    startGithubSearch(for: self.repoName)
-                }
-                .buttonStyle(.bordered)
-            }
-            
-            NavigationLink(
-                destination: GitHubSearchResults(results: self.foundRepos),
-                isActive: $isActive
-            ) { EmptyView() }
+            Spacer()
             
             if reposSearchInProgress {
                 LoaderView()
+                    .padding(.bottom)
             }
+            
+            searchView
+                .padding([.leading, .trailing])
+                .padding(.bottom)
         }
+        
+        NavigationLink(
+            destination: GitHubSearchResults(results: self.foundRepos),
+            isActive: $isActive
+        ) { EmptyView() }
     }
     
     // MARK: Private
@@ -55,6 +42,40 @@ struct RepoNameField: View {
     @State private var isActive = false
     @State private var reposSearchInProgress: Bool = false
     
+    private var searchView: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color("gray.light"))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(.gray, lineWidth: 1)
+                )
+            HStack(alignment: .firstTextBaseline) {
+                Image(systemName: "magnifyingglass")
+                    .frame(width: 44)
+                    .foregroundColor(.gray)
+                
+                TextField("Search repository", text: $repoName)
+                    .font(.system(.body))
+                    .disableAutocorrection(true)
+                    .padding(.bottom)
+                    .offset(x: -16)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        startGithubSearch(for: self.repoName)
+                    }
+                
+                Button {
+                    repoName.removeAll()
+                } label: {
+                    Label(" ", systemImage: "xmark.circle.fill")
+                        .frame(height: 44)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+        .frame(height: 44)
+    }
     
     // Some repos fo quick switching
     // by "I'm Feeling Lucky" button
