@@ -7,18 +7,21 @@
 
 import SwiftUI
 
+struct RepoView_Previews: PreviewProvider {
+    static var previews: some View {
+        RepoView(repo: .mocked.repo1)
+    }
+}
 
 struct RepoView: View {
     
     @State var repo: Repo
     
-    @EnvironmentObject var githubApi: GithubApiService
-    
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 6) {
-            Text(repo.name).font(.title)
-            Text(repo.full_name)
+            Text(repo.name)
+                .font(.title)
+            Text(repo.fullName)
             
             Text("id: \(repo.id)")
             
@@ -26,29 +29,19 @@ struct RepoView: View {
                 Text("description: \n\(safeDescription)")
             }
             
-            
-//            Text("link: \n\(repo.html_url)")
-            
-            Link(destination: URL(string: repo.html_url)!) {
-                HStack {
-                    Text("Open in browser")
-                    Image(systemName: "link.circle.fill").font(.title)
+            if let repoURL = URL(string: repo.htmlUrl) {
+                Link(destination: repoURL) {
+                    HStack {
+                        Text("Open in browser")
+                        Image(systemName: "link.circle.fill").font(.title)
+                    }
+                    
                 }
-                
             }
             
             Text("Files in repo (latest):")
-            RepoFilesView(repo: self.repo)
-
-            
-
+            RepoFilesView(repo: repo)
         }
-        
+        .padding()
     }
 }
-
-//struct RepoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RepoView()
-//    }
-//}

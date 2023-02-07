@@ -19,8 +19,8 @@
 		D0785D2429881D0200147F21 /* LoaderSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1B29881D0200147F21 /* LoaderSpinner.swift */; };
 		D0785D2529881D0200147F21 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1C29881D0200147F21 /* RepoView.swift */; };
 		D0785D2629881D0200147F21 /* RepoNameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1D29881D0200147F21 /* RepoNameField.swift */; };
-		D0785D2729881D0200147F21 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1E29881D0200147F21 /* FileList.swift */; };
 		D0785D2829881D0200147F21 /* RepoFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1F29881D0200147F21 /* RepoFilesView.swift */; };
+		D0ADDA08298B7F410022B650 /* GitHubSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +48,9 @@
 		D0785D1B29881D0200147F21 /* LoaderSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderSpinner.swift; sourceTree = "<group>"; };
 		D0785D1C29881D0200147F21 /* RepoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
 		D0785D1D29881D0200147F21 /* RepoNameField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoNameField.swift; sourceTree = "<group>"; };
-		D0785D1E29881D0200147F21 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
 		D0785D1F29881D0200147F21 /* RepoFilesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoFilesView.swift; sourceTree = "<group>"; };
+		D0ADDA06298B779B0022B650 /* YourFirstCommit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "YourFirstCommit-Info.plist"; sourceTree = "<group>"; };
+		D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchResults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +74,7 @@
 		62B0DD742980099E00D28506 = {
 			isa = PBXGroup;
 			children = (
+				D0ADDA06298B779B0022B650 /* YourFirstCommit-Info.plist */,
 				62B0DDAA298009B300D28506 /* Resources */,
 				62B0DD7F2980099E00D28506 /* Sources */,
 				62B0DD902980099F00D28506 /* Tests */,
@@ -96,7 +98,6 @@
 				D0785D1729881D0200147F21 /* Services */,
 				D0785D1929881D0200147F21 /* Views */,
 				62B0DD802980099E00D28506 /* Application.swift */,
-				62B0DD822980099E00D28506 /* ContentView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -148,10 +149,11 @@
 			isa = PBXGroup;
 			children = (
 				D0785D1A29881D0200147F21 /* Misc */,
+				62B0DD822980099E00D28506 /* ContentView.swift */,
 				D0785D1C29881D0200147F21 /* RepoView.swift */,
 				D0785D1D29881D0200147F21 /* RepoNameField.swift */,
-				D0785D1E29881D0200147F21 /* FileList.swift */,
 				D0785D1F29881D0200147F21 /* RepoFilesView.swift */,
+				D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,7 +268,6 @@
 			files = (
 				D0785D2129881D0200147F21 /* SearchReposResults.swift in Sources */,
 				D0785D2829881D0200147F21 /* RepoFilesView.swift in Sources */,
-				D0785D2729881D0200147F21 /* FileList.swift in Sources */,
 				D0785D2329881D0200147F21 /* GithubApiService.swift in Sources */,
 				D0785D2529881D0200147F21 /* RepoView.swift in Sources */,
 				D0785D2229881D0200147F21 /* RepoFile.swift in Sources */,
@@ -274,6 +275,7 @@
 				D0785D2629881D0200147F21 /* RepoNameField.swift in Sources */,
 				D0785D2429881D0200147F21 /* LoaderSpinner.swift in Sources */,
 				62B0DD832980099E00D28506 /* ContentView.swift in Sources */,
+				D0ADDA08298B7F410022B650 /* GitHubSearchResults.swift in Sources */,
 				62B0DD812980099E00D28506 /* Application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,8 +423,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YourFirstCommit-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -450,8 +452,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YourFirstCommit-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

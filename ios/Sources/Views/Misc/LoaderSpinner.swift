@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-
+struct LoaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoaderView()
+    }
+}
     
 struct LoaderView: View {
     var tintColor: Color = .blue

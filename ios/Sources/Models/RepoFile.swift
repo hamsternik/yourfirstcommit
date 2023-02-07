@@ -7,10 +7,8 @@
 
 import Foundation
 
-// Represent a files in repository
-// API URL example: https://api.github.com/repos/aristocratos/btop/contents
-
-
+/// Represent a files in repository
+/// API URL example: https://api.github.com/repos/aristocratos/btop/contents
 struct RepoFile: Codable, Hashable {
     var name: String
     var path: String
