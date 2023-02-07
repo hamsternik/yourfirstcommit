@@ -7,21 +7,29 @@
 
 import SwiftUI
 
+struct GitHubSearchResults_Previews: PreviewProvider {
+    static var previews: some View {
+        let results = SearchReposResults(
+            total_count: 2,
+            incomplete_results: false,
+            items: [.mocked.repo1, .mocked.repo2]
+        )
+        GitHubSearchResults(results: results)
+    }
+}
+
 struct GitHubSearchResults: View {
-    
     @State var results: SearchReposResults?
     
     var body: some View {
         VStack {
-            
-            if let results = self.results {
-                
+            if let results = results {
                 List {
-                    ForEach(results.items, id: \.self) { repoItem in
+                    ForEach(results.items, id: \.self) { repo in
                         NavigationLink {
-                            RepoView(repo: repoItem)
+                            RepoView(repo: repo)
                         } label: {
-                            Text(repoItem.full_name).padding(0)
+                            Text(repo.fullName).padding(0)
                         }.listRowSeparator(.hidden).padding(0)
                     }
                 }.listStyle(PlainListStyle())
@@ -33,16 +41,5 @@ struct GitHubSearchResults: View {
         }
         .padding(0)
         .navigationBarTitle(Text("Search results"), displayMode: .inline)
-    }
-}
-
-struct GitHubSearchResults_Previews: PreviewProvider {
-    
-    static let repo1 = Repo(id: 1, name: "repo1", full_name: "repo1", html_url: "url1")
-    static let repo2 = Repo(id: 2, name: "repo2", full_name: "repo2", html_url: "url2")
-    @State static var dummyResults = SearchReposResults(total_count: 2, incomplete_results: false, items: [repo1, repo2])
-    
-    static var previews: some View {
-        GitHubSearchResults(results: dummyResults)
     }
 }

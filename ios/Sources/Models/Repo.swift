@@ -10,7 +10,20 @@ import Foundation
 struct Repo: Codable, Hashable, Identifiable {
     var id: Int
     var name: String
-    var full_name: String
-    var html_url: String
+    var fullName: String
+    var htmlUrl: String
     var description: String? // not all repos have a description
+}
+
+// MARK: Mocked Data
+
+extension Repo {
+    struct Mocked {
+        let repo1 = Repo(id: 1, name: "firstRepo", fullName: "First Repo", htmlUrl: "https://agithub.com/repo1")
+        let repo2 = Repo(id: 2, name: "secondRepo", fullName: "Second Repo", htmlUrl: "https://agithub.com/repo2")
+    }
+    
+    static var mocked: Mocked {
+        Mocked()
+    }
 }

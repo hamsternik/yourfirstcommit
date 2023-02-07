@@ -7,14 +7,52 @@
 
 import SwiftUI
 
+struct RepoNameField_Previews: PreviewProvider {
+    static var previews: some View {
+        RepoNameField()
+    }
+}
 
 struct RepoNameField: View {
     
     @State var repoName: String = "tensorflow"
     
+    var body: some View {
+        VStack(alignment: .center, spacing: 6) {
+            Text("Enter repository name:")
+            TextField("Enter text...", text: $repoName)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .disableAutocorrection(true).font(.system(.body, design: .monospaced))
+                .padding(.bottom)
+            
+            HStack (spacing: 10) {
+                Button("Search") {
+                    startGithubSearch(for: self.repoName)
+                }
+                .buttonStyle(.bordered)
+                
+                Button("I'm Feeling Lucky") {
+                    repoName = predefinedRepos.randomElement()!
+                    startGithubSearch(for: self.repoName)
+                }
+                .buttonStyle(.bordered)
+            }
+            
+            NavigationLink(
+                destination: GitHubSearchResults(results: self.foundRepos),
+                isActive: $isActive
+            ) { EmptyView() }
+            
+            if reposSearchInProgress {
+                LoaderView()
+            }
+        }
+    }
+    
+    // MARK: Private
+    
     @State private var foundRepos:SearchReposResults? = nil
     @State private var isActive = false
-    
     @State private var reposSearchInProgress: Bool = false
     
     
@@ -42,47 +80,5 @@ struct RepoNameField: View {
                 reposSearchInProgress = false
             }
         }
-    }
-    
-    
-    var body: some View {
-        GeometryReader { geometry in
-            
-            VStack(alignment: .center, spacing: 6) {
-                
-                
-                Text("Enter repository name:")
-                TextField("Enter text...", text: $repoName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true).font(.system(.body, design: .monospaced))
-                    .padding(.bottom)
-                
-                HStack (spacing: 10) {
-                    Button("Search") {
-                        startGithubSearch(for: self.repoName)
-                    }.buttonStyle(.bordered)
-                    
-                    Button("I'm Feeling Lucky") {
-                        repoName = predefinedRepos.randomElement()!
-                        startGithubSearch(for: self.repoName)
-                    }.buttonStyle(.bordered)
-                }
-                
-                NavigationLink(destination: GitHubSearchResults(results: self.foundRepos), isActive: $isActive) { }
-                
-                if reposSearchInProgress {
-                    LoaderView()
-                }
-            }
-        }
-    }
-}
-
-struct RepoNameField_Previews: PreviewProvider {
-    
-    //    @State static var githubApi = GithubApiService()
-    
-    static var previews: some View {
-        RepoNameField()
     }
 }

@@ -8,11 +8,8 @@
 import Foundation
 
 struct GithubApiService {
-    
-    private let apiRootURL: String = "https://api.github.com/"
-    
     func newSearchGithub(forRepo repoName: String, completion: @escaping(SearchReposResults?, Error?) -> Void) {
-        if let url = URL(string: apiRootURL + "search/repositories?q=" + repoName) {
+        if let url = URL(string: baseURL + "search/repositories?q=" + repoName) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 
@@ -43,10 +40,9 @@ struct GithubApiService {
             task.resume()
         }
     }
-
     
     func loadRepoFiles(for repo: Repo, completion: @escaping([RepoFile]?, Error?) -> Void) {
-        if let url = URL(string: apiRootURL + "repos/" + repo.full_name + "/contents") {
+        if let url = URL(string: baseURL + "repos/" + repo.fullName + "/contents") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 
@@ -78,5 +74,5 @@ struct GithubApiService {
         }
     }
     
-    
+    private let baseURL: String = "https://api.github.com/"
 }

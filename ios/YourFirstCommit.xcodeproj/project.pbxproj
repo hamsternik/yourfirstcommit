@@ -98,7 +98,6 @@
 				D0785D1729881D0200147F21 /* Services */,
 				D0785D1929881D0200147F21 /* Views */,
 				62B0DD802980099E00D28506 /* Application.swift */,
-				62B0DD822980099E00D28506 /* ContentView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -150,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				D0785D1A29881D0200147F21 /* Misc */,
+				62B0DD822980099E00D28506 /* ContentView.swift */,
 				D0785D1C29881D0200147F21 /* RepoView.swift */,
 				D0785D1D29881D0200147F21 /* RepoNameField.swift */,
 				D0785D1F29881D0200147F21 /* RepoFilesView.swift */,

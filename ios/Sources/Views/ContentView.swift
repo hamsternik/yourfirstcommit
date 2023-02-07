@@ -7,13 +7,20 @@
 
 import SwiftUI
 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
 struct ContentView: View {
-    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("Your First Commit").font(.title).padding(.bottom)
+                    Text("Your First Commit")
+                        .font(.title)
+                        .padding(.bottom)
                     
                     // 1.. typing repo name
                     
@@ -29,12 +36,6 @@ struct ContentView: View {
                 .frame(width: geometry.size.width, alignment: .leading)
             }
         }
-    }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        .navigationTitle("Your First Commit")
     }
 }
