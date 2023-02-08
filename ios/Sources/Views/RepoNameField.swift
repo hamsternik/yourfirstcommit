@@ -72,10 +72,12 @@ struct RepoNameField: View {
         reposSearchInProgress = true
         GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
             if let repos = result {
+                print("yep")
                 foundRepos = repos
                 isActive = true
                 reposSearchInProgress = false
             } else if let _ = error {
+                print("nope")
                 //Handle or show this error somehow
                 reposSearchInProgress = false
             }

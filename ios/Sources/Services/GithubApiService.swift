@@ -13,6 +13,7 @@ struct GithubApiService {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 
+                
                 if let error = error {
                     print("error is \(error.localizedDescription)")
                     completion(nil, error)
@@ -21,6 +22,7 @@ struct GithubApiService {
                 
                 guard let data = data else {
                     // THERE IS NO DATA RETURNED, Might want to handle this case
+                    print("no data returned?")
                     return
                 }
                 
@@ -31,8 +33,12 @@ struct GithubApiService {
                         result.items = Array(result.items[0 ..< 20])
                     }
                     
+                    
+                    
                     completion(result, nil)
                 } catch (let decodingError) {
+                    print(decodingError)
+                    
                     completion(nil, decodingError)
                 }
                 
