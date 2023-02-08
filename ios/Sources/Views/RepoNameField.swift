@@ -27,13 +27,17 @@ struct RepoNameField: View {
             
             HStack (spacing: 10) {
                 Button("Search") {
-                    startGithubSearch(for: self.repoName)
+                    Task {
+                        await startGithubSearch(for: self.repoName)
+                    }
                 }
                 .buttonStyle(.bordered)
                 
                 Button("I'm Feeling Lucky") {
                     repoName = predefinedRepos.randomElement()!
-                    startGithubSearch(for: self.repoName)
+                    Task {
+                        await startGithubSearch(for: self.repoName)
+                    }
                 }
                 .buttonStyle(.bordered)
             }
@@ -68,19 +72,23 @@ struct RepoNameField: View {
         "spectre.css"
     ]
     
-    private func startGithubSearch(for name: String) {
+    private func startGithubSearch(for name: String) async {
         reposSearchInProgress = true
-        GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
-            if let repos = result {
-                print("yep")
-                foundRepos = repos
-                isActive = true
-                reposSearchInProgress = false
-            } else if let _ = error {
-                print("nope")
-                //Handle or show this error somehow
-                reposSearchInProgress = false
+        do {
+            try await GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
+                if let repos = result {
+                    print("yep")
+                    foundRepos = repos
+                    isActive = true
+                    reposSearchInProgress = false
+                } else if let _ = error {
+                    print("nope")
+                    //Handle or show this error somehow
+                    reposSearchInProgress = false
+                }
             }
+        } catch {
+            print("Request failed with error: \(error)")
         }
     }
 }

@@ -31,7 +31,7 @@ struct RepoFilesView: View {
             }
             
         }.onAppear {
-            self.startRepoFilesLoading(for: self.repo)
+            Task { await self.startRepoFilesLoading(for: self.repo) }
         }
     }
     
@@ -40,16 +40,21 @@ struct RepoFilesView: View {
     @State private var repoFiles: [RepoFile] = []
     @State private var repoFileLoadInProgress: Bool = false
     
-    private func startRepoFilesLoading(for repo: Repo) {
+    
+    private func startRepoFilesLoading(for repo: Repo) async {
         repoFileLoadInProgress = true
-        GithubApiService().loadRepoFiles(for: repo) { (result, error) in
-            if let files = result {
-                repoFiles = files
-                repoFileLoadInProgress = false
-            } else if let _ = error {
-                //Handle or show this error somehow
-                repoFileLoadInProgress = false
+        do {
+            try await GithubApiService().loadRepoFiles(for: repo) { (result, error) in
+                if let files = result {
+                    repoFiles = files
+                    repoFileLoadInProgress = false
+                } else if let _ = error {
+                    //Handle or show this error somehow
+                    repoFileLoadInProgress = false
+                }
             }
+        } catch {
+            print("Request in startRepoFilesLoading failed with error: \(error)")
         }
     }
 }
