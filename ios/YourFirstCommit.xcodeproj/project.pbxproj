@@ -12,6 +12,7 @@
 		62B0DD852980099F00D28506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62B0DD842980099F00D28506 /* Assets.xcassets */; };
 		62B0DD882980099F00D28506 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62B0DD872980099F00D28506 /* Preview Assets.xcassets */; };
 		62B0DD922980099F00D28506 /* YourFirstCommitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B0DD912980099F00D28506 /* YourFirstCommitTests.swift */; };
+		62D0E44C299AEA1000A1B04F /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0E44B299AEA1000A1B04F /* SearchFieldView.swift */; };
 		D0785D2029881D0200147F21 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1429881D0200147F21 /* Repo.swift */; };
 		D0785D2129881D0200147F21 /* SearchReposResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1529881D0200147F21 /* SearchReposResults.swift */; };
 		D0785D2229881D0200147F21 /* RepoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1629881D0200147F21 /* RepoFile.swift */; };
@@ -41,6 +42,7 @@
 		62B0DD872980099F00D28506 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		62B0DD8D2980099F00D28506 /* YourFirstCommitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourFirstCommitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62B0DD912980099F00D28506 /* YourFirstCommitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFirstCommitTests.swift; sourceTree = "<group>"; };
+		62D0E44B299AEA1000A1B04F /* SearchFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldView.swift; sourceTree = "<group>"; };
 		D0785D1429881D0200147F21 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		D0785D1529881D0200147F21 /* SearchReposResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchReposResults.swift; sourceTree = "<group>"; };
 		D0785D1629881D0200147F21 /* RepoFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoFile.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				D0785D1C29881D0200147F21 /* RepoView.swift */,
 				D0785D1D29881D0200147F21 /* RepoNameField.swift */,
 				D0785D1F29881D0200147F21 /* RepoFilesView.swift */,
+				62D0E44B299AEA1000A1B04F /* SearchFieldView.swift */,
 				D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */,
 			);
 			path = Views;
@@ -271,6 +274,7 @@
 				D0785D2329881D0200147F21 /* GithubApiService.swift in Sources */,
 				D0785D2529881D0200147F21 /* RepoView.swift in Sources */,
 				D0785D2229881D0200147F21 /* RepoFile.swift in Sources */,
+				62D0E44C299AEA1000A1B04F /* SearchFieldView.swift in Sources */,
 				D0785D2029881D0200147F21 /* Repo.swift in Sources */,
 				D0785D2629881D0200147F21 /* RepoNameField.swift in Sources */,
 				D0785D2429881D0200147F21 /* LoaderSpinner.swift in Sources */,

@@ -25,9 +25,8 @@ struct RepoNameField: View {
                     .padding(.bottom)
             }
             
-            searchView
-                .padding([.leading, .trailing])
-                .padding(.bottom)
+            SearchFieldView(searchString: $repoName)
+                .padding(.horizontal)
         }
         
         NavigationLink(
