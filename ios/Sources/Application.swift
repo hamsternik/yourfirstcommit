@@ -15,3 +15,9 @@ struct Application: App {
         }
     }
 }
+
+extension Color {
+    static var appBackground: Color {
+        .init("app.background")
+    }
+}
