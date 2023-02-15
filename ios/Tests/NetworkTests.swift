@@ -28,19 +28,18 @@ final class NetworkTests: XCTestCase {
         let repo: Repo = Repo(id: 1, name: "pomodoress", fullName: "r-ss/pomodoress", htmlUrl: "h-ti-ti")
         
         
-        do {
-            try await GithubApiService().loadFirstCommit(for: repo) { (result, error) in
-                if let res = result {
-                    print("result: \(res)")
-                    
-                    XCTAssertEqual(res.detail.message, "initial")
-                    XCTAssertEqual(res.detail.author.name, "Alex Antipov")
-                } 
+        Task(priority: .background) {
+            let result = await GithubService().loadFirstCommit(for: repo)
+            switch result {
+            case .success(let res):
+                XCTAssertEqual(res[0].detail.message, "initial")
+                XCTAssertEqual(res[0].detail.author.name, "Alex Antipov")
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
             }
-        } catch {
-            print("Request in startRepoFilesLoading failed with error: \(error)")
         }
         
+                
     }
 
 

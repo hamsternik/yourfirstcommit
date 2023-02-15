@@ -51,38 +51,41 @@ struct RepoFilesView: View {
     
     
     private func startRepoFirstFilesLoading(for repo: Repo) async {
+        
         repoFileLoadInProgress = true
-        do {
-            try await GithubApiService().loadFirstRepoFiles(for: repo) { (result, error) in
-                if let files = result {
-                    repoFiles = files
-                    repoFileLoadInProgress = false
-                } else if let _ = error {
-                    //Handle or show this error somehow
-                    repoFileLoadInProgress = false
-                }
+        Task(priority: .background) {
+            let result = await GithubService().loadFirstCommitFiles(for: repo)
+            switch result {
+            case .success(let res):
+                repoFiles = res.tree
+                repoFileLoadInProgress = false
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
+                repoFileLoadInProgress = false
             }
-        } catch {
-            print("Request in startRepoFilesLoading failed with error: \(error)")
         }
+        
+        
+    
+
     }
     
     
-    private func startRepoLatestFilesLoading(for repo: Repo) async {
-        repoFileLoadInProgress = true
-        do {
-            try await GithubApiService().loadLatestRepoFiles(for: repo) { (result, error) in
-                if let files = result {
-                    repoFiles = files
-                    repoFileLoadInProgress = false
-                } else if let _ = error {
-                    //Handle or show this error somehow
-                    repoFileLoadInProgress = false
-                }
-            }
-        } catch {
-            print("Request in startRepoFilesLoading failed with error: \(error)")
-        }
-    }
+//    private func startRepoLatestFilesLoading(for repo: Repo) async {
+//        repoFileLoadInProgress = true
+//        do {
+//            try await GithubService().loadLatestRepoFiles(for: repo) { (result, error) in
+//                if let files = result {
+//                    repoFiles = files
+//                    repoFileLoadInProgress = false
+//                } else if let _ = error {
+//                    //Handle or show this error somehow
+//                    repoFileLoadInProgress = false
+//                }
+//            }
+//        } catch {
+//            print("Request in startRepoFilesLoading failed with error: \(error)")
+//        }
+//    }
     
 }

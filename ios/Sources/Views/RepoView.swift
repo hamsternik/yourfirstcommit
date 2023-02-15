@@ -58,7 +58,7 @@ struct RepoView: View  {
                 Text("First commit files:")
                 RepoFilesView(repo: repo)
             }
-            
+
             
             
         }
@@ -73,30 +73,21 @@ struct RepoView: View  {
     @State private var firstCommitLoadInProgress: Bool = false
     
     private func fetchFirstCommit(for repo: Repo) async {
+        
+        
         firstCommitLoadInProgress = true
-        
-        do  {
-            
-            try await GithubApiService().loadFirstCommit(for: repo) { (result, error) in
-                if let first = result {
-                    self.repo.firstCommit = first
-                    firstCommitLoadInProgress = false
-                    
-                    
-                    
-                } else if let _ = error {
-                    //Handle or show this error somehow
-                    firstCommitLoadInProgress = false
-                }
+        Task(priority: .background) {
+            let result = await GithubService().loadFirstCommit(for: repo)
+            switch result {
+            case .success(let res):
+                self.repo.firstCommit = res[0]
+                firstCommitLoadInProgress = false
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
+                firstCommitLoadInProgress = false
             }
-
-        } catch {
-            // TODO: is there any analog of do/catch/finally to not repeat firstCommitLoadInProgress = false
-            firstCommitLoadInProgress = true
-            
-            print("Request in repoCommitLoadInProgress failed with error: \(error)")
         }
-        
+
     
     }
     

@@ -75,19 +75,17 @@ struct RepoNameField: View {
     
     private func startGithubSearch(for name: String) async {
         reposSearchInProgress = true
-        do {
-            try await GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
-                if let repos = result {
-                    foundRepos = repos
-                    isActive = true
-                    reposSearchInProgress = false
-                } else if let _ = error {
-                    //Handle or show this error somehow
-                    reposSearchInProgress = false
-                }
+        Task(priority: .background) {
+            let result = await GithubService().searchRepositories(name: name)
+            switch result {
+            case .success(let searchResponse):
+                foundRepos = searchResponse
+                isActive = true
+                reposSearchInProgress = false
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
+                reposSearchInProgress = false
             }
-        } catch {
-            print("Request failed with error: \(error)")
         }
     }
 }

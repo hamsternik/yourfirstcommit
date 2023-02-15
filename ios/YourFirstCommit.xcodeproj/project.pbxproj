@@ -13,6 +13,10 @@
 		62B0DD882980099F00D28506 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62B0DD872980099F00D28506 /* Preview Assets.xcassets */; };
 		62B0DD922980099F00D28506 /* YourFirstCommitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B0DD912980099F00D28506 /* YourFirstCommitTests.swift */; };
 		D01FB4772993B6A6004DA919 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01FB4762993B6A6004DA919 /* NetworkTests.swift */; };
+		D0253404299D16DA00DB50F1 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0253403299D16DA00DB50F1 /* RequestError.swift */; };
+		D0253406299D170000DB50F1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0253405299D170000DB50F1 /* Endpoint.swift */; };
+		D0253408299D176200DB50F1 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0253407299D176200DB50F1 /* HTTPClient.swift */; };
+		D025340A299D18AC00DB50F1 /* GithubEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0253409299D18AC00DB50F1 /* GithubEndpoint.swift */; };
 		D077E5FF29940F970033CEEE /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D077E5FE29940F970033CEEE /* Commit.swift */; };
 		D0785D2029881D0200147F21 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1429881D0200147F21 /* Repo.swift */; };
 		D0785D2129881D0200147F21 /* SearchReposResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0785D1529881D0200147F21 /* SearchReposResults.swift */; };
@@ -44,6 +48,10 @@
 		62B0DD8D2980099F00D28506 /* YourFirstCommitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourFirstCommitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62B0DD912980099F00D28506 /* YourFirstCommitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFirstCommitTests.swift; sourceTree = "<group>"; };
 		D01FB4762993B6A6004DA919 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+		D0253403299D16DA00DB50F1 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		D0253405299D170000DB50F1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		D0253407299D176200DB50F1 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		D0253409299D18AC00DB50F1 /* GithubEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubEndpoint.swift; sourceTree = "<group>"; };
 		D077E5FE29940F970033CEEE /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
 		D0785D1429881D0200147F21 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		D0785D1529881D0200147F21 /* SearchReposResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchReposResults.swift; sourceTree = "<group>"; };
@@ -132,6 +140,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D0253402299D16BB00DB50F1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D0253403299D16DA00DB50F1 /* RequestError.swift */,
+				D0253405299D170000DB50F1 /* Endpoint.swift */,
+				D0253407299D176200DB50F1 /* HTTPClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		D0785D1329881D0200147F21 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +164,9 @@
 		D0785D1729881D0200147F21 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D0253402299D16BB00DB50F1 /* Network */,
 				D0785D1829881D0200147F21 /* GithubApiService.swift */,
+				D0253409299D18AC00DB50F1 /* GithubEndpoint.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -272,15 +292,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0253406299D170000DB50F1 /* Endpoint.swift in Sources */,
 				D077E5FF29940F970033CEEE /* Commit.swift in Sources */,
 				D0785D2129881D0200147F21 /* SearchReposResults.swift in Sources */,
 				D0785D2829881D0200147F21 /* RepoFilesView.swift in Sources */,
 				D0785D2329881D0200147F21 /* GithubApiService.swift in Sources */,
 				D0785D2529881D0200147F21 /* RepoView.swift in Sources */,
 				D0785D2229881D0200147F21 /* RepoFile.swift in Sources */,
+				D025340A299D18AC00DB50F1 /* GithubEndpoint.swift in Sources */,
 				D0785D2029881D0200147F21 /* Repo.swift in Sources */,
 				D0785D2629881D0200147F21 /* RepoNameField.swift in Sources */,
 				D0785D2429881D0200147F21 /* LoaderSpinner.swift in Sources */,
+				D0253404299D16DA00DB50F1 /* RequestError.swift in Sources */,
+				D0253408299D176200DB50F1 /* HTTPClient.swift in Sources */,
 				62B0DD832980099E00D28506 /* ContentView.swift in Sources */,
 				D0ADDA08298B7F410022B650 /* GitHubSearchResults.swift in Sources */,
 				62B0DD812980099E00D28506 /* Application.swift in Sources */,
