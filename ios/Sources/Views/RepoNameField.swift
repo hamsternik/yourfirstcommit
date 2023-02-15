@@ -15,7 +15,7 @@ struct RepoNameField_Previews: PreviewProvider {
 
 struct RepoNameField: View {
     
-    @State var repoName: String = "tensorflow"
+    @State var repoName: String = "hamsternik/yourfirstcommit"
     
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
@@ -63,6 +63,7 @@ struct RepoNameField: View {
     // Some repos fo quick switching
     // by "I'm Feeling Lucky" button
     private let predefinedRepos: [String] = [
+        "hamsternik/yourfirstcommit",
         "tensorflow",
         "btop",
         "ahawker/ulid",
@@ -77,12 +78,10 @@ struct RepoNameField: View {
         do {
             try await GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
                 if let repos = result {
-                    print("yep")
                     foundRepos = repos
                     isActive = true
                     reposSearchInProgress = false
                 } else if let _ = error {
-                    print("nope")
                     //Handle or show this error somehow
                     reposSearchInProgress = false
                 }

@@ -13,13 +13,14 @@ struct Repo: Codable, Hashable, Identifiable {
     var fullName: String
     var htmlUrl: String
     var description: String? // not all repos have a description
+    var commitsCount: Int?
+    var firstCommit: Commit?
     
     enum CodingKeys: String, CodingKey {
         case fullName = "full_name"
         case htmlUrl = "html_url"
         case id
         case name
-        case description
     }
 }
 
