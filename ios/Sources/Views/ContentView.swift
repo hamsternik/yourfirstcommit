@@ -20,8 +20,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-//                Color.appBackground
-//                    .ignoresSafeArea()
+                Color.appBackground
+                    .ignoresSafeArea()
                 contentView
                     .padding()
                     .navigationTitle("Your First Commit")
@@ -159,7 +159,7 @@ struct ContentView: View {
             switch result {
             case .success(let res):
                 foundRepos = res
-//                self.repo.firstCommit = res[0]
+                self.isActive = true
                 reposSearchInProgress = false
             case .failure(let error):
                 print("Request failed with error: \(error.customMessage)")
@@ -167,19 +167,7 @@ struct ContentView: View {
             }
         }
         
-        
-        
-//        reposSearchInProgress = true
-//        GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
-//            if let repos = result {
-//                foundRepos = repos
-//                isActive = true
-//                reposSearchInProgress = false
-//            } else if let _ = error {
-//                //Handle or show this error somehow
-//                reposSearchInProgress = false
-//            }
-//        }
+
     }
 }
 
@@ -192,6 +180,11 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 private extension Color {
+    
+    static var appBackground: Color {
+        .init("app.background")
+    }
+    
     static var randomRepoBackground: Color {
         .init("random-repo.background")
     }
