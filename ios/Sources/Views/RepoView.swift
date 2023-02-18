@@ -13,7 +13,7 @@ struct RepoView_Previews: PreviewProvider {
     }
 }
 
-struct RepoView: View  {
+struct RepoView: View {
     
     @State var repo: Repo
     
@@ -58,16 +58,12 @@ struct RepoView: View  {
                 Text("First commit files:")
                 RepoFilesView(repo: repo)
             }
-
-            
-            
         }
         .padding()
         .onAppear {
             Task { await self.fetchFirstCommit(for: self.repo) }
         }
     }
-    
     
     // MARK: Private
     @State private var firstCommitLoadInProgress: Bool = false
@@ -87,8 +83,7 @@ struct RepoView: View  {
                 firstCommitLoadInProgress = false
             }
         }
-
-    
+        
+        
     }
-    
 }
