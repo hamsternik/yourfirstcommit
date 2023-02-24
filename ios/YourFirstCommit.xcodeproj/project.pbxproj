@@ -189,6 +189,7 @@
 				D0B3909229A0E7120038E3C3 /* SearchFieldView.swift */,
 				D0785D1C29881D0200147F21 /* RepoView.swift */,
 				D0785D1F29881D0200147F21 /* RepoFilesView.swift */,
+				62D0E44B299AEA1000A1B04F /* SearchFieldView.swift */,
 				D0ADDA07298B7F410022B650 /* GitHubSearchResults.swift */,
 			);
 			path = Views;

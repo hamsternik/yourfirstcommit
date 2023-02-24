@@ -152,22 +152,17 @@ struct ContentView: View {
     ]
     
     private func startGithubSearch(for name: String) {
-        
         reposSearchInProgress = true
-        Task(priority: .background) {
-            let result = await GithubService().searchRepositories(name: name)
-            switch result {
-            case .success(let res):
-                foundRepos = res
-                self.isActive = true
+        GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
+            if let repos = result {
+                foundRepos = repos
+                isActive = true
                 reposSearchInProgress = false
-            case .failure(let error):
-                print("Request failed with error: \(error.customMessage)")
+            } else if let _ = error {
+                //Handle or show this error somehow
                 reposSearchInProgress = false
             }
         }
-        
-
     }
 }
 
@@ -180,11 +175,6 @@ struct HighlightedButtonStyle: ButtonStyle {
 }
 
 private extension Color {
-    
-    static var appBackground: Color {
-        .init("app.background")
-    }
-    
     static var randomRepoBackground: Color {
         .init("random-repo.background")
     }
