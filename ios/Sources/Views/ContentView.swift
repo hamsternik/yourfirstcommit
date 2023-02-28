@@ -152,17 +152,22 @@ struct ContentView: View {
     ]
     
     private func startGithubSearch(for name: String) {
+        
         reposSearchInProgress = true
-        GithubApiService().newSearchGithub(forRepo: name) { (result, error) in
-            if let repos = result {
+        Task(priority: .background) {
+            let result = await GithubService().searchRepositories(name: name)
+            switch result {
+            case .success(let repos):
                 foundRepos = repos
-                isActive = true
                 reposSearchInProgress = false
-            } else if let _ = error {
-                //Handle or show this error somehow
+                isActive = true
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
                 reposSearchInProgress = false
             }
         }
+        
+    
     }
 }
 

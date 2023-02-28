@@ -23,7 +23,7 @@ struct RepoFilesView: View {
             } else {
                 List {
                     ForEach(repoFiles, id: \.self) { file in
-                        Text(file.name).padding(0)
+                        Text(file.path).padding(0)
                             .font(.system(.body, design: .monospaced))
                             .background(Color.gray.opacity(0.25))
                     }
@@ -40,14 +40,19 @@ struct RepoFilesView: View {
     @State private var repoFiles: [RepoFile] = []
     @State private var repoFileLoadInProgress: Bool = false
     
+    
+    
     private func startRepoFilesLoading(for repo: Repo) {
+        
         repoFileLoadInProgress = true
-        GithubApiService().loadRepoFiles(for: repo) { (result, error) in
-            if let files = result {
-                repoFiles = files
+        Task(priority: .background) {
+            let result = await GithubService().loadFirstCommitFiles(for: repo)
+            switch result {
+            case .success(let res):
+                repoFiles = res.tree
                 repoFileLoadInProgress = false
-            } else if let _ = error {
-                //Handle or show this error somehow
+            case .failure(let error):
+                print("Request failed with error: \(error.customMessage)")
                 repoFileLoadInProgress = false
             }
         }
