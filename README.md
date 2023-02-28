@@ -15,6 +15,7 @@ The project divided by several steps:
 First, the concept. We are driving to build the first feasible produdct following the next rules:
 
 > Keep your proof of concept as simple and bare bones as possible. To help keep costs down and reduce the time required to build it, you should:
+>
 > - Keep the PoC development team small. Minimizing the number of people working on the PoC will help to keep the work more efficient.
 > - Minimize the amount of UI/UX design work. This type of work can be costly. Only do work that is strictly necessary to meet the goals you established for your PoC.
 > - Focus only on the goals you established for your PoC. Do not attempt to build an MVP. That should be a separate stage of development.
@@ -42,5 +43,5 @@ Swift 5+, SwiftUI, Async / Await, Combine. iOS only app. The application launch 
 
 ### Design & Implementation
 
-- Figma Design, npm.io main page: https://www.figma.com/file/1yMsW7w1xXs5K7B3NAhWFA/Your-First-Commit.io-Project?node-id=0%3A1
-- npms.io website repo: https://github.com/npms-io/npms-www
+- Figma Design, npm.io main page: <https://www.figma.com/file/1yMsW7w1xXs5K7B3NAhWFA/Your-First-Commit.io-Project?node-id=0%3A1>
+- npms.io website repo: <https://github.com/npms-io/npms-www>
