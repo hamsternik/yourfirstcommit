@@ -10,7 +10,7 @@ import Foundation
 
 protocol GithubServiceable {
     func searchRepositories(name: String) async -> Result<SearchReposResults, RequestError>
-    func loadFirstCommit(for repo: Repo) async -> Result<[Commit], RequestError>
+    //    func loadFirstCommit(for repo: Repo) async -> Result<[Commit], RequestError>
     func loadFirstCommitFiles(for repo: Repo) async -> Result<RepoFilesTree, RequestError>
 }
 
@@ -21,18 +21,29 @@ struct GithubService: HTTPClient, GithubServiceable {
         return await sendRequest(endpoint: GithubEndpoint.searchRepositories(repoName: name), responseModel: SearchReposResults.self)
     }
     
-    func loadFirstCommit(for repo: Repo) async -> Result<[Commit], RequestError> {
-        var numCommits: Int?
-        do {
-            numCommits = try await self.getNumberOfCommits(for: repo)
-        } catch (let _) {
-            return Result.failure(RequestError.unknown)
-        }
+    func loadFirstCommit(for repo: Repo) async -> Result<(commits: Int, first: Commit), RequestError> {
         
-        if let num = numCommits {
-            return await sendRequest(endpoint: GithubEndpoint.firstCommit(repoName: repo.fullName, numCommits: num), responseModel: [Commit].self)
+        // Getting number of commint to make first of them
+       
+        let numCommitsRequestResult:Result<Int, RequestError> = await self.getNumberOfCommits(for: repo)
+        
+        
+        switch numCommitsRequestResult {
+        case .success(let numCommits):
+            
+            let firstCommitRequestResult:Result<[Commit], RequestError> = await sendRequest(endpoint: GithubEndpoint.firstCommit(repoName: repo.fullName, numCommits: numCommits), responseModel: [Commit].self)
+            
+            switch firstCommitRequestResult {
+            case .success(let result):
+                return Result.success((commits: numCommits, first: result.first!))
+                
+            case .failure(let error):
+                return .failure(error)
+            }
+            
+        case .failure(let error):
+            return .failure(error)
         }
-        return Result.failure(RequestError.unknown)
     }
     
     func loadFirstCommitFiles(for repo: Repo) async -> Result<RepoFilesTree, RequestError> {
@@ -42,7 +53,7 @@ struct GithubService: HTTPClient, GithubServiceable {
         return await sendRequest(endpoint: GithubEndpoint.commitFiles(repoName: repo.fullName, commitSha: firstCommit.sha), responseModel: RepoFilesTree.self)
     }
     
-    private func getNumberOfCommits(for repo: Repo) async throws -> Int {
+    private func getNumberOfCommits(for repo: Repo) async -> Result<Int, RequestError> {
         
         // Tricky approach to get total number of commits in repository from HTTP headers
         // Found here as a CURL-request: https://gist.github.com/0penBrain/7be59a48aba778c955d992aa69e524c5
@@ -50,13 +61,28 @@ struct GithubService: HTTPClient, GithubServiceable {
         // Changed minimum iOS deployment target to 16.0 for make possible using Swift regex here
         
         guard let url = URL(string: "https://api.github.com/repos/" + repo.fullName + "/commits?per_page=1") else {
-            throw RequestError.invalidURL
+            return .failure(.invalidURL)
         }
         
-        let (_, response) = try await URLSession.shared.bytes(from: url)
+        guard let (_, response) = try? await URLSession.shared.bytes(from: url) else {
+            return .failure(.custom(message: "Error getting bytes for URLSession"))
+        }
+        
+        
+        let resp = response as! HTTPURLResponse
+        
+        guard let apiRateLimitRemaining = try? Int( resp.allHeaderFields["x-ratelimit-remaining"] as! String ) else {
+            return .failure(.custom(message: "Error in do/catch inside getNumberOfCommits()"))
+        }
+        
+        
+        print("API rate limit remaining:", apiRateLimitRemaining)
+        if apiRateLimitRemaining == 0 {
+            return .failure(.custom(message: "GitHub API requests rate limit reached. Wait a bit or implement auth :)"))
+        }
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw RequestError.unknown
+            return .failure(.unexpectedStatusCode)
         }
         
         let httpResponse = response as! HTTPURLResponse // TODO: Is force-casting here okay?
@@ -81,13 +107,14 @@ struct GithubService: HTTPClient, GithubServiceable {
                 
                 if let result = lastPagePath.firstMatch(of: lastDigitInStringRegex) {
                     if let count = Int(result.0) {
-                        return count
+                        //print("Number of commits:", count)
+                        return .success(count)
                     }
                 }
             }
         }
         
-        throw RequestError.unexpectedHeaders
+        return .failure(.unexpectedHeaders)
     }
     
     

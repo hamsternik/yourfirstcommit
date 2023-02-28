@@ -23,24 +23,32 @@ struct RepoView: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 6) {
-                    //Text(repo.name)
-                    //.font(.title)
                     Text(repo.fullName)
-                    
-                    //Text("id: \(repo.id)")
                     if let repoURL = URL(string: repo.htmlUrl) {
                         Link(destination: repoURL) {
                             HStack {
                                 Text("Open in browser")
-                                Image(systemName: "link.circle.fill").resizable().frame(width: 24, height: 24)
-                                    .padding(2)
+                                Image(systemName: "link.circle.fill").font(.system(size: 24, weight: .bold)).padding(.trailing, 5)
                             }
                         }.padding([.top, .bottom], 10)
                     }
-                    
-                    if let num = repo.commitsCount {
-                        Text("number of commits: \(num)")
-                    }
+                    HStack(spacing: 0) {
+                        
+                        if let commits = repo.commitsCount {
+                            Text("\(commits) commits").padding(.trailing, 10)
+                        }
+                        
+                        if let stars = repo.starsNumber {
+                            Image(systemName: "star.fill").font(.system(size: 16, weight: .medium)).padding(.trailing, 5)
+                            Text("\(stars) stars").padding(.trailing, 10)
+                        }
+                        
+                        if let forks = repo.forksNumber {
+                            Image(systemName: "doc.on.doc").font(.system(size: 16, weight: .medium)).padding(.trailing, 5)
+                            Text("\(forks) forks")
+                        }
+                        
+                    }.padding(.bottom, 10)
                     
                     if firstCommitLoadInProgress {
                         HStack (spacing: 10){
@@ -50,21 +58,26 @@ struct RepoView: View {
                     }
                     
                     if let first = repo.firstCommit {
-                        HStack {
-                            Text("First commit date:").font(.system(size: 18, weight: .bold))
-                            Text(first.detail.author.date)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 9)
+                                .fill(Color.gray.opacity(0.25))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 9).stroke(Color.gray.opacity(0.55), lineWidth: 1)
+                                )
+                                .frame(height: 40)
+                            HStack {
+                                Text("First commit:").font(.system(size: 18, weight: .bold))
+                                Text(first.detail.author.date)
+                            }
                         }
-                        
                     }
                     
                     if let safeDescription = repo.description {
                         Text("description: \n\(safeDescription)")
                     }
                     
-                    
-                    
                     if let _ = repo.firstCommit {
-                        Text("First commit files:").font(.system(size: 18, weight: .bold)).padding(.bottom, 6)
+                        Text("First commit files:").font(.system(size: 18, weight: .bold)).padding([.top, .bottom], 6)
                         RepoFilesView(repo: repo)
                     }
                 }
@@ -74,32 +87,46 @@ struct RepoView: View {
                     Task { await self.fetchFirstCommit(for: self.repo) }
                 }
                 .navigationTitle(repo.name)
+                .alert(alertMessage, isPresented: $showAlert) {
+                    Button("OK", role: .cancel) { }
+                }
             }
         }
         
     }
     
     // MARK: Private
+    private let iconSize: CGFloat = 20
+    
+    @State private var showAlert = false
+    @State private var alertMessage: String = "Error..."
+    
     @State private var firstCommitLoadInProgress: Bool = false
+    
+    private func makeAlert(message: String) {
+        alertMessage = message
+        showAlert = true
+    }
     
     private func fetchFirstCommit(for repo: Repo) async {
         
-        
         firstCommitLoadInProgress = true
         Task(priority: .background) {
-//            print(repo)
-            let result = await GithubService().loadFirstCommit(for: repo)
-            switch result {
-            case .success(let res):
-//                print(res)
-                self.repo.firstCommit = res[0]
+            let requestResult: Result<(commits: Int, first: Commit), RequestError> = await GithubService().loadFirstCommit(for: repo)
+            switch requestResult {
+            case .success(let result):
+//                print(result.commits)
+//                print(result.first)
+                
+                self.repo.commitsCount = result.commits
+                self.repo.firstCommit = result.first
+                
                 firstCommitLoadInProgress = false
             case .failure(let error):
                 print("Request failed with error: \(error.customMessage)")
                 firstCommitLoadInProgress = false
+                makeAlert(message: error.customMessage)
             }
         }
-        
-        
     }
 }
