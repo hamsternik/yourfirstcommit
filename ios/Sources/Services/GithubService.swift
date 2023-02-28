@@ -10,7 +10,7 @@ import Foundation
 
 protocol GithubServiceable {
     func searchRepositories(name: String) async -> Result<SearchReposResults, RequestError>
-    //    func loadFirstCommit(for repo: Repo) async -> Result<[Commit], RequestError>
+    func loadFirstCommit(for repo: Repo) async -> Result<(commits: Int, first: Commit), RequestError>
     func loadFirstCommitFiles(for repo: Repo) async -> Result<RepoFilesTree, RequestError>
 }
 
