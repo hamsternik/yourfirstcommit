@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RepoView_Previews: PreviewProvider {
     static var previews: some View {
-        RepoView(repo: .mocked.repo1)
+        NavigationStack {
+            RepoView(repo: .mocked.repo1)
+        }
     }
 }
 
@@ -18,51 +20,63 @@ struct RepoView: View {
     @State var repo: Repo
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(repo.name)
-                .font(.title)
-            Text(repo.fullName)
-            
-            Text("id: \(repo.id)")
-            
-            if let num = repo.commitsCount {
-                Text("number of commits: \(num)")
-            }
-            
-            if firstCommitLoadInProgress {
-                HStack (spacing: 10){
-                    Text("Loading first commit")
-                    LoaderView()
-                }
-            }
-            
-            if let first = repo.firstCommit {
-                Text("First commit date: \(first.detail.author.date)")
-            }
-            
-            if let safeDescription = repo.description {
-                Text("description: \n\(safeDescription)")
-            }
-            
-            if let repoURL = URL(string: repo.htmlUrl) {
-                Link(destination: repoURL) {
-                    HStack {
-                        Text("Open in browser")
-                        Image(systemName: "link.circle.fill").font(.title)
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 6) {
+                    //Text(repo.name)
+                    //.font(.title)
+                    Text(repo.fullName)
+                    
+                    //Text("id: \(repo.id)")
+                    if let repoURL = URL(string: repo.htmlUrl) {
+                        Link(destination: repoURL) {
+                            HStack {
+                                Text("Open in browser")
+                                Image(systemName: "link.circle.fill").resizable().frame(width: 24, height: 24)
+                                    .padding(2)
+                            }
+                        }.padding([.top, .bottom], 10)
                     }
                     
+                    if let num = repo.commitsCount {
+                        Text("number of commits: \(num)")
+                    }
+                    
+                    if firstCommitLoadInProgress {
+                        HStack (spacing: 10){
+                            Text("Loading first commit")
+                            LoaderView()
+                        }
+                    }
+                    
+                    if let first = repo.firstCommit {
+                        HStack {
+                            Text("First commit date:").font(.system(size: 18, weight: .bold))
+                            Text(first.detail.author.date)
+                        }
+                        
+                    }
+                    
+                    if let safeDescription = repo.description {
+                        Text("description: \n\(safeDescription)")
+                    }
+                    
+                    
+                    
+                    if let _ = repo.firstCommit {
+                        Text("First commit files:").font(.system(size: 18, weight: .bold)).padding(.bottom, 6)
+                        RepoFilesView(repo: repo)
+                    }
                 }
-            }
-            
-            if let _ = repo.firstCommit {
-                Text("First commit files:")
-                RepoFilesView(repo: repo)
+                .padding()
+                .frame(width: geometry.size.width, alignment: .leading)
+                .onAppear {
+                    Task { await self.fetchFirstCommit(for: self.repo) }
+                }
+                .navigationTitle(repo.name)
             }
         }
-        .padding()
-        .onAppear {
-            Task { await self.fetchFirstCommit(for: self.repo) }
-        }
+        
     }
     
     // MARK: Private
@@ -73,9 +87,11 @@ struct RepoView: View {
         
         firstCommitLoadInProgress = true
         Task(priority: .background) {
+//            print(repo)
             let result = await GithubService().loadFirstCommit(for: repo)
             switch result {
             case .success(let res):
+//                print(res)
                 self.repo.firstCommit = res[0]
                 firstCommitLoadInProgress = false
             case .failure(let error):

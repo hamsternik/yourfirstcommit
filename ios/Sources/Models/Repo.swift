@@ -28,7 +28,8 @@ struct Repo: Codable, Hashable, Identifiable {
 
 extension Repo {
     struct Mocked {
-        let repo1 = Repo(id: 1, name: "firstRepo", fullName: "First Repo", htmlUrl: "https://agithub.com/repo1")
+        
+        let repo1 = Repo(id: 1, name: "firstRepo", fullName: "First Repo", htmlUrl: "https://agithub.com/repo1", commitsCount: 66, firstCommit: Commit.mocked.commit0)
         let repo2 = Repo(id: 2, name: "secondRepo", fullName: "Second Repo", htmlUrl: "https://agithub.com/repo2")
     }
     

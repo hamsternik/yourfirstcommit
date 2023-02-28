@@ -25,11 +25,9 @@ struct GithubService: HTTPClient, GithubServiceable {
         var numCommits: Int?
         do {
             numCommits = try await self.getNumberOfCommits(for: repo)
-        } catch (let decodingError) {
+        } catch (let _) {
             return Result.failure(RequestError.unknown)
         }
-        
-//        print(numCommits)
         
         if let num = numCommits {
             return await sendRequest(endpoint: GithubEndpoint.firstCommit(repoName: repo.fullName, numCommits: num), responseModel: [Commit].self)

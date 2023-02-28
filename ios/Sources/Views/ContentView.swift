@@ -41,18 +41,54 @@ struct ContentView: View {
     @ViewBuilder
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 15) {
-            SearchFieldView(searchString: $repoName)
+            SearchFieldView(searchString: $repoName) { searchString in
+                if searchString == "" {
+                    // Handle cross tap in searchFiend, resetting results and whole screen to initial state
+                    foundRepos = nil
+                    return
+                }
+                startGithubSearch(for: searchString)
+            }
             
             Group {
-                if !reposSearchInProgress {
-                    centeredContentView
+                if let repos = foundRepos?.items {
+                    List {
+                        ForEach(repos, id: \.self) { repo in
+                            NavigationLink {
+                                RepoView(repo: repo)
+                            } label: {
+                                Text(repo.fullName).padding(0)
+                            }.listRowSeparator(.hidden).padding(0)
+                        }
+                    }.listStyle(PlainListStyle())
                 } else {
-                    centeredLoadingView
+                    
+                    if !reposSearchInProgress {
+                        
+
+
+
+                        
+                    } else {
+                        centeredLoadingView
+                    }
+                    
+                    footerView
+                        .padding(.bottom)
+                    
                 }
             }
             
-            footerView
-                .padding(.bottom)
+//            Group {
+//                if !reposSearchInProgress {
+//                    centeredContentView
+//                } else {
+//                    centeredLoadingView
+//                }
+//            }
+//
+            
+            
         }
         
         NavigationLink(
@@ -160,7 +196,7 @@ struct ContentView: View {
             case .success(let repos):
                 foundRepos = repos
                 reposSearchInProgress = false
-                isActive = true
+                //isActive = true
             case .failure(let error):
                 print("Request failed with error: \(error.customMessage)")
                 reposSearchInProgress = false

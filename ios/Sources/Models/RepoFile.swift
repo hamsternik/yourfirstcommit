@@ -16,6 +16,30 @@ struct RepoFilesTree: Codable, Hashable {
 
 struct RepoFile: Codable, Hashable {
     var path: String
-    var type: String
+    var type: String // blob or tree
     var size: Int?
+}
+
+// MARK: Mocked Data
+
+extension RepoFile {
+    struct Mocked {
+        let file0 = RepoFile(path: "setup-examples", type: "tree", size: 13618)
+        let file1 = RepoFile(path: ".gitignore", type: "blob", size: 255)
+        let file2 = RepoFile(path: "README.md", type: "blob", size: 620)
+    }
+    
+    static var mocked: Mocked {
+        Mocked()
+    }
+}
+
+extension RepoFilesTree {
+    struct Mocked {
+        let tree0 = RepoFilesTree(tree: [RepoFile.mocked.file0, RepoFile.mocked.file1, RepoFile.mocked.file2])
+    }
+    
+    static var mocked: Mocked {
+        Mocked()
+    }
 }
